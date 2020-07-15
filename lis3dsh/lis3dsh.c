@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : lis3dsh.c
-  * @brief          : Файл с функциями для работы с акселерометром LIS3DSH
-	* @details				:	Содержит функции инициализации, записи/чтения, получение значений, их преобразование
+  * @file       : lis3dsh.c
+  * @brief      : Файл с функциями для работы с акселерометром LIS3DSH
+  * @details	: Содержит функции инициализации, записи/чтения, получение значений, их преобразование
   ******************************************************************************
   */
 	
@@ -25,13 +25,13 @@ double LIS3DSH_get_sensitivity(void);
 /**
 	* 	@brief 		Инициализация LIS3DSH
 	*	@details	Инициализация модуля SPI, ножки CS, установка кода отсутствия ошибки, чтение ID, 
-	*				инициализация акселерометра следующими параметрами:
-	*				-Скорость данных: 100 кГц
-	*				-Разрешить оси X и Y
-	*				-В зависимости от полученного значения чувствительности - выбор шкалы
-	*				-SPI на 4 провода
-	*				-Самотестирование отключено
-	*				-Пропускная частота фильтра антидребезга - 800 Гц
+	*			инициализация акселерометра следующими параметрами:
+	*			-Скорость данных: 100 кГц
+	*			-Разрешить оси X и Y
+	*			-В зависимости от полученного значения чувствительности - выбор шкалы
+	*			-SPI на 4 провода
+	*			-Самотестирование отключено
+	*			-Пропускная частота фильтра антидребезга - 800 Гц
 	*	@param		Handle SPI, указатель на порт ножки CS, ножка CS
 	* 	@retval 	Нет
   */
@@ -75,7 +75,7 @@ double LIS3DSH_get_sensitivity(void) {
 	
 	LIS3DSH_read(&data_from_register, LIS3DSH_ADDR_CTRL_REG5, 1);
 	switch (data_from_register & (LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_16G | LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_2G | LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_4G | \
-																LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_6G | LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_8G)) {
+				      LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_6G | LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_8G)) {
 		case LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_2G:
 			sensitivity = 0.06;
 			break;
@@ -118,7 +118,7 @@ strct_xyz LIS3DSH_get_XYZ(void) {
 /**
 	* 	@brief 		Получение значения по осям XYZ в виде int16
 	*	@details	Преобразует данные из структуры strct_xyz в strct_xyz_int_16, сдвигая регистры и умножая на
-	*				полученную чувствительность
+	*			полученную чувствительность
 	*	@param		Нет
 	* 	@retval 	Структура strct_xyz с данными в виде int16
   */
