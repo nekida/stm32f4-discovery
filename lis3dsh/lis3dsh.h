@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-	* @file     : 	lis3dsh.h
-	* @brief	: 	Заголовочный файл с константами, описанием структур данных и прототипами функций
-	*					для работы с акселерометром LIS3DSH
-	* @details	:	Содержит функции инициализации, записи/чтения, получение значений, их преобразование
+	* @file		: lis3dsh.h
+	* @brief	: Заголовочный файл с константами, описанием структур данных и прототипами функций
+	*		  для работы с акселерометром LIS3DSH
+	* @details	: Содержит функции инициализации, записи/чтения, получение значений, их преобразование
   ******************************************************************************
   */
 
@@ -25,11 +25,11 @@
 #define LIS3DSH_ADDR_CTRL_REG4	0x20
 #define LIS3DSH_ADDR_CTRL_REG5	0x24
 
-#define LIS3DSH_MASK_CTRL_REG4_X_AXIS_ENABLE	0x1
-#define LIS3DSH_MASK_CTRL_REG4_Y_AXIS_ENABLE	0x2
-#define LIS3DSH_MASK_CTRL_REG4_Z_AXIS_ENABLE	0x4
-#define LIS3DSH_MASK_CTRL_REG4_XYZ_AXIS_ENABLE	0x7
-#define LIS3DSH_MASK_CTRL_REG4_ODR_POWER_DOWN	0x0
+#define LIS3DSH_MASK_CTRL_REG4_X_AXIS_ENABLE		0x1
+#define LIS3DSH_MASK_CTRL_REG4_Y_AXIS_ENABLE		0x2
+#define LIS3DSH_MASK_CTRL_REG4_Z_AXIS_ENABLE		0x4
+#define LIS3DSH_MASK_CTRL_REG4_XYZ_AXIS_ENABLE		0x7
+#define LIS3DSH_MASK_CTRL_REG4_ODR_POWER_DOWN		0x0
 #define LIS3DSH_MASK_CTRL_REG4_ODR_3_125_HZ		0x10
 #define LIS3DSH_MASK_CTRL_REG4_ODR_6_15_HZ		0x20
 #define LIS3DSH_MASK_CTRL_REG4_ODR_12_5_HZ		0x30
@@ -40,9 +40,9 @@
 #define LIS3DSH_MASK_CTRL_REG4_ODR_800_HZ		0x80
 #define LIS3DSH_MASK_CTRL_REG4_ODR_1600_HZ		0x90
 
-#define LIS3DSH_MASK_CTRL_REG5_SPI_MODE_4WIRE			0x0
-#define LIS3DSH_MASK_CTRL_REG5_SPI_MODE_3WIRE			0x1
-#define LIS3DSH_MASK_CTRL_REG5_SELFTEST_NORMAL			0x0
+#define LIS3DSH_MASK_CTRL_REG5_SPI_MODE_4WIRE		0x0
+#define LIS3DSH_MASK_CTRL_REG5_SPI_MODE_3WIRE		0x1
+#define LIS3DSH_MASK_CTRL_REG5_SELFTEST_NORMAL		0x0
 #define LIS3DSH_MASK_CTRL_REG5_SELFTEST_POSITIVE_SIGN	0x2
 #define LIS3DSH_MASK_CTRL_REG5_SELFTEST_NEGATIVE_SIGN	0x4
 #define LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_2G	0x0
@@ -56,12 +56,12 @@
 #define LIS3DSH_MASK_CTRL_REG5_FILTER_BANDWITH_50_HZ	0xC0
 
 #define LIS3DSH_CMD_READ_WRITE 	0x80
-#define LIS3DSH_CMD_16_BIT		0x40			
+#define LIS3DSH_CMD_16_BIT	0x40			
 
 ///Управление ножной CS 
 typedef enum {
-	CS_PULL,			///<Ножку к питанию
-	CS_DOWN				///<Ножку к нулю
+	CS_PULL,		///<Ножку к питанию
+	CS_DOWN			///<Ножку к нулю
 } CS_STATE_t;
 
 ///Ошибки при работе
@@ -79,16 +79,16 @@ typedef struct {
 
 ///Значения по осям
 typedef struct {
-	axis x;				///<X
-	axis y;				///<Y
-	axis z;				///<Z
+	axis x;		///<X
+	axis y;		///<Y
+	axis z;		///<Z
 } strct_xyz;
 
 ///Значения по осям в int16
 typedef struct {
-	int16_t x;			///<X
-	int16_t y;			///<Y
-	int16_t z;			///<Z
+	int16_t x;	///<X
+	int16_t y;	///<Y
+	int16_t z;	///<Z
 } strct_xyz_int_16;
 
 void LIS3DSH_init(SPI_HandleTypeDef LIS3DSH_spi_for_init, GPIO_TypeDef *LIS3DSH_spi_cs_port_for_init, uint16_t LIS3DSH_spi_cs_pin_for_init);
