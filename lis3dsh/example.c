@@ -43,7 +43,6 @@
 #define LED3_OFF	(HAL_GPIO_WritePin(LED3_Orange_GPIO_Port,	LED3_Orange_Pin, 	GPIO_PIN_RESET))
 #define LED6_ON 	(HAL_GPIO_WritePin(LED6_Blue_GPIO_Port, 	LED6_Blue_Pin, 		GPIO_PIN_SET))
 #define LED6_OFF	(HAL_GPIO_WritePin(LED6_Blue_GPIO_Port, 	LED6_Blue_Pin, 		GPIO_PIN_RESET))
-#define ALL_LED_OFF LED5_OFF; LED4_OFF; LED3_OFF; LED6_OFF;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -75,7 +74,6 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	//strct_xyz_int_16 xyz_int16_main;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -98,7 +96,7 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-	LIS3DSH_init(hspi1, SPI1_CS_GPIO_Port, SPI1_CS_Pin);
+  LIS3DSH_init(hspi1, SPI1_CS_GPIO_Port, SPI1_CS_Pin);
   /* USER CODE END 2 */
 
   /* Infinite loop */
