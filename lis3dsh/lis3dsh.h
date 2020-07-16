@@ -92,6 +92,6 @@ typedef struct {
 } strct_xyz_int_16;
 
 void LIS3DSH_init(SPI_HandleTypeDef LIS3DSH_spi_for_init, GPIO_TypeDef *LIS3DSH_spi_cs_port_for_init, uint16_t LIS3DSH_spi_cs_pin_for_init);
-strct_xyz_int_16 LIS3DSH_get_XYZ_u16(void);
+strct_xyz_int_16 LIS3DSH_get_XYZ_int16(void);
 
 #endif /*__LIS3DSH_H */
