@@ -23,15 +23,15 @@ void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx);
 double LIS3DSH_get_sensitivity(void);
 
 /**
-	* @brief 	Инициализация LIS3DSH
+	* @brief	Инициализация LIS3DSH
 	* @details	Инициализация модуля SPI, ножки CS, установка кода отсутствия ошибки, чтение ID, 
 	*		инициализация акселерометра следующими параметрами:
-	*		-Скорость данных: 100 кГц
-	*		-Разрешить оси X и Y
-	*		-В зависимости от полученного значения чувствительности - выбор шкалы
-	*		-SPI на 4 провода
-	*		-Самотестирование отключено
-	*		-Пропускная частота фильтра антидребезга - 800 Гц
+	* \details 	-Скорость данных: 100 кГц
+	* \details 	-Разрешить оси X и Y
+	* \details 	-В зависимости от полученного значения чувствительности - выбор шкалы
+	* \details 	-SPI на 4 провода
+	* \details 	-Самотестирование отключено
+	* \details 	-Пропускная частота фильтра антидребезга - 800 Гц
 	* @param	Handle SPI, указатель на порт ножки CS, ножка CS
 	* @retval 	Нет
   */
@@ -148,9 +148,10 @@ void LIS3DSH_spi_cs(CS_STATE_t state) {
 }
 
 /**
-	* @brief	Запись или чтение данных
+	* @brief 	Запись или чтение данных
 	* @details	Отправка и прием данных через модуль SPI посредством функции HAL
-	* @param	Байт для передачи, байт для приема
+	* @param[in]	byte_tx Байт для передачи
+	* @param[out]	byte_rx Байт для приема
 	* @retval 	Нет
   */
 void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx) {
@@ -160,9 +161,11 @@ void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx) {
 }
 
 /**
-	* @brief	Чтение из LIS3DSH
-	* @details	Читает опрежеденное количество данных по определенному адресу
-	* @param	Укузатель на данные, адрес, размер данных
+	* @brief 	Чтение из LIS3DSH
+	* @details	Читает определенное количество данных по определенному адресу
+	* @param[out]	input_data	Указатель на данные
+	* @param[in] 	read_address	Адрес
+	* @param[in]	size_data	Размер данных
 	* @retval 	Нет
   */
 void LIS3DSH_read(uint8_t *input_data, uint8_t read_address, uint16_t size_data) {
@@ -179,9 +182,11 @@ void LIS3DSH_read(uint8_t *input_data, uint8_t read_address, uint16_t size_data)
 }
 
 /**
-	* @brief	Запись в LIS3DSH
-	* @details	Записывает опрежеденное количество данных по определенному адресу
-	* @param	Укузатель на данные, адрес, размер данных
+	* @brief 	Запись в LIS3DSH
+	* @details	Записывает определенное количество данных по определенному адресу
+	* @param[in]	output_data	Указатель на данные
+	* @param[in] 	write_address	Адрес
+	* @param[in]	size_data	Размер данных
 	* @retval 	Нет
   */
 void LIS3DSH_write(uint8_t *output_data, uint8_t write_address, uint16_t size_data) {
