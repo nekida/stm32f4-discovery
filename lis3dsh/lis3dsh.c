@@ -119,7 +119,7 @@ strct_xyz LIS3DSH_get_XYZ(void) {
 	* @brief	Получение значения по осям XYZ в виде int16
 	* @details	Преобразует данные из структуры strct_xyz в strct_xyz_int_16, сдвигая регистры и умножая на
 	* 		полученную чувствительность
-	* @param		Нет
+	* @param	Нет
 	* @retval 	Структура strct_xyz с данными в виде int16
   */
 strct_xyz_int_16 LIS3DSH_get_XYZ_int16(void) {
