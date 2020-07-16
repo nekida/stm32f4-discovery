@@ -8,19 +8,19 @@
 	
 #include "lis3dsh.h"
 
-SPI_HandleTypeDef LIS3DSH_spi;		///<Handle SPI для работы с LIS3DSH
-GPIO_TypeDef *LIS3DSH_spi_cs_port;	///<Указатель на порт ножки CS
-uint16_t LIS3DSH_spi_cs_pin;		///<Ножка CS
-LIS3DSH_ERROR_t LIS3DSH_code_error;	///<Ошибка
-double LIS3DSH_sensitivity = 0.0;	///<Чувствительность
+SPI_HandleTypeDef	LIS3DSH_spi;			///<Handle SPI для работы с LIS3DSH
+GPIO_TypeDef 		*LIS3DSH_spi_cs_port;		///<Указатель на порт ножки CS
+uint16_t 		LIS3DSH_spi_cs_pin;		///<Ножка CS
+LIS3DSH_ERROR_t 	LIS3DSH_code_error;		///<Ошибка
+double 			LIS3DSH_sensitivity = 0.0;	///<Чувствительность
 
 uint8_t LIS3DSH_get_id(void);
-void LIS3DSH_spi_cs(CS_STATE_t state);
-void LIS3DSH_read(uint8_t *input_data, uint8_t read_address, uint16_t size_data);
-void LIS3DSH_write(uint8_t *output_data, uint8_t write_address, uint16_t size_data);
-void LIS3DSH_error_handler(LIS3DSH_ERROR_t LIS3DSH_error);
-void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx);
-double LIS3DSH_get_sensitivity(void);
+void 	LIS3DSH_spi_cs(CS_STATE_t state);
+void 	LIS3DSH_read(uint8_t *input_data, uint8_t read_address, uint16_t size_data);
+void 	LIS3DSH_write(uint8_t *output_data, uint8_t write_address, uint16_t size_data);
+void 	LIS3DSH_error_handler(LIS3DSH_ERROR_t LIS3DSH_error);
+void 	LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx);
+double	LIS3DSH_get_sensitivity(void);
 
 /**
 	* @brief	Инициализация LIS3DSH
