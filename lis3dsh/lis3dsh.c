@@ -23,25 +23,25 @@ void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx);
 double LIS3DSH_get_sensitivity(void);
 
 /**
-	* 	@brief 		Инициализация LIS3DSH
-	*	@details	Инициализация модуля SPI, ножки CS, установка кода отсутствия ошибки, чтение ID, 
-	*			инициализация акселерометра следующими параметрами:
-	*			-Скорость данных: 100 кГц
-	*			-Разрешить оси X и Y
-	*			-В зависимости от полученного значения чувствительности - выбор шкалы
-	*			-SPI на 4 провода
-	*			-Самотестирование отключено
-	*			-Пропускная частота фильтра антидребезга - 800 Гц
-	*	@param		Handle SPI, указатель на порт ножки CS, ножка CS
-	* 	@retval 	Нет
+	* @brief 		Инициализация LIS3DSH
+	* @details	Инициализация модуля SPI, ножки CS, установка кода отсутствия ошибки, чтение ID, 
+	*		инициализация акселерометра следующими параметрами:
+	*		-Скорость данных: 100 кГц
+	*		-Разрешить оси X и Y
+	*		-В зависимости от полученного значения чувствительности - выбор шкалы
+	*		-SPI на 4 провода
+	*		-Самотестирование отключено
+	*		-Пропускная частота фильтра антидребезга - 800 Гц
+	* @param	Handle SPI, указатель на порт ножки CS, ножка CS
+	* @retval 	Нет
   */
 void LIS3DSH_init(SPI_HandleTypeDef LIS3DSH_spi_for_init, GPIO_TypeDef *LIS3DSH_spi_cs_port_for_init, uint16_t LIS3DSH_spi_cs_pin_for_init) {
 	uint8_t data_init = 0;
 	
-	LIS3DSH_spi = LIS3DSH_spi_for_init;
-	LIS3DSH_spi_cs_port = LIS3DSH_spi_cs_port_for_init;
-	LIS3DSH_spi_cs_pin = LIS3DSH_spi_cs_pin_for_init;
-	LIS3DSH_code_error = LIS3DSH_ERROR_NONE;
+	LIS3DSH_spi 		= LIS3DSH_spi_for_init;
+	LIS3DSH_spi_cs_port 	= LIS3DSH_spi_cs_port_for_init;
+	LIS3DSH_spi_cs_pin 	= LIS3DSH_spi_cs_pin_for_init;
+	LIS3DSH_code_error 	= LIS3DSH_ERROR_NONE;
 	
 	if (LIS3DSH_get_id() != LIS3DSH_ID) 
 		LIS3DSH_error_handler(LIS3DSH_ERROR_ID);
@@ -64,14 +64,14 @@ void LIS3DSH_init(SPI_HandleTypeDef LIS3DSH_spi_for_init, GPIO_TypeDef *LIS3DSH_
 }
 
 /**
-	* 	@brief 		Получение значения чувствительности
-	*	@details	Запрос значения чувствительности из REG5
-	*	@param		Нет
-	* 	@retval 	Чувствительность в double
+	* @brief	Получение значения чувствительности
+	* @details	Запрос значения чувствительности из REG5
+	* @param	Нет
+	* @retval 	Чувствительность в double
   */
 double LIS3DSH_get_sensitivity(void) {
-	double sensitivity = 0.0;
-	uint8_t data_from_register = 0;
+	double sensitivity 		= 0.0;
+	uint8_t data_from_register 	= 0;
 	
 	LIS3DSH_read(&data_from_register, LIS3DSH_ADDR_CTRL_REG5, 1);
 	switch (data_from_register & (LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_16G | LIS3DSH_MASK_CTRL_REG5_FULLSCALE_SELECTION_2G | \
@@ -97,10 +97,10 @@ double LIS3DSH_get_sensitivity(void) {
 }
 
 /**
-	* 	@brief 		Получение значения по осям XYZ
-	*	@details	Читает младший и старший регистры со значениями для каждой оси
-	*	@param		Нет
-	* 	@retval 	Структура strct_xyz с данными
+	* @brief	Получение значения по осям XYZ
+	* @details	Читает младший и старший регистры со значениями для каждой оси
+	* @param	Нет
+	* @retval 	Структура strct_xyz с данными
   */
 strct_xyz LIS3DSH_get_XYZ(void) {
 	strct_xyz xyz;
@@ -116,11 +116,11 @@ strct_xyz LIS3DSH_get_XYZ(void) {
 }
 
 /**
-	* 	@brief 		Получение значения по осям XYZ в виде int16
-	*	@details	Преобразует данные из структуры strct_xyz в strct_xyz_int_16, сдвигая регистры и умножая на
-	*			полученную чувствительность
-	*	@param		Нет
-	* 	@retval 	Структура strct_xyz с данными в виде int16
+	* @brief	Получение значения по осям XYZ в виде int16
+	* @details	Преобразует данные из структуры strct_xyz в strct_xyz_int_16, сдвигая регистры и умножая на
+	* 		полученную чувствительность
+	* @param		Нет
+	* @retval 	Структура strct_xyz с данными в виде int16
   */
 strct_xyz_int_16 LIS3DSH_get_XYZ_int16(void) {
 	strct_xyz_int_16 xyz_16;
@@ -136,9 +136,9 @@ strct_xyz_int_16 LIS3DSH_get_XYZ_int16(void) {
 }
 
 /**
-	* 	@brief 		Управление ножкой CS
-	*	@param		Состояние, которое нужно выставить
-	* 	@retval 	Нет
+	* @brief	Управление ножкой CS
+	* @param	Состояние, которое нужно выставить
+	* @retval 	Нет
   */
 void LIS3DSH_spi_cs(CS_STATE_t state) {
 	if (state == CS_PULL)
@@ -148,10 +148,10 @@ void LIS3DSH_spi_cs(CS_STATE_t state) {
 }
 
 /**
-	* 	@brief 		Запись или чтение данных
-	*	@details	Отправка и прием данных через модуль SPI посредством функции HAL
-	*	@param		Байт для передачи, байт для приема
-	* 	@retval 	Нет
+	* @brief	Запись или чтение данных
+	* @details	Отправка и прием данных через модуль SPI посредством функции HAL
+	* @param	Байт для передачи, байт для приема
+	* @retval 	Нет
   */
 void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx) {
 	if (HAL_SPI_TransmitReceive(&LIS3DSH_spi, byte_tx, byte_rx, 1, 100) != HAL_OK) {
@@ -160,10 +160,10 @@ void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx) {
 }
 
 /**
-	* 	@brief 		Чтение из LIS3DSH
-	*	@details	Читает опрежеденное количество данных по определенному адресу
-	*	@param		Укузатель на данные, адрес, размер данных
-	* 	@retval 	Нет
+	* @brief	Чтение из LIS3DSH
+	* @details	Читает опрежеденное количество данных по определенному адресу
+	* @param	Укузатель на данные, адрес, размер данных
+	* @retval 	Нет
   */
 void LIS3DSH_read(uint8_t *input_data, uint8_t read_address, uint16_t size_data) {
 	uint8_t var_for_spi_clock = 0;
@@ -179,10 +179,10 @@ void LIS3DSH_read(uint8_t *input_data, uint8_t read_address, uint16_t size_data)
 }
 
 /**
-	* 	@brief 		Запись в LIS3DSH
-	*	@details	Записывает опрежеденное количество данных по определенному адресу
-	*	@param		Укузатель на данные, адрес, размер данных
-	* 	@retval 	Нет
+	* @brief	Запись в LIS3DSH
+	* @details	Записывает опрежеденное количество данных по определенному адресу
+	* @param	Укузатель на данные, адрес, размер данных
+	* @retval 	Нет
   */
 void LIS3DSH_write(uint8_t *output_data, uint8_t write_address, uint16_t size_data) {
 	uint8_t var_for_spi_clock = 0;
@@ -197,9 +197,9 @@ void LIS3DSH_write(uint8_t *output_data, uint8_t write_address, uint16_t size_da
 }
 
 /**
-	* 	@brief 		Получить ID
-	*	@param		Нет
-	* 	@retval 	ID
+	* @brief	Получить ID
+	* @param	Нет
+	* @retval 	ID
   */
 uint8_t LIS3DSH_get_id(void) {
 	uint8_t id = 0;
@@ -210,9 +210,9 @@ uint8_t LIS3DSH_get_id(void) {
 }
 
 /**
-	* 	@brief 		Обработчик ошибки
-	*	@param		Ошибка
-	* 	@retval 	Нет
+	* @brief	Обработчик ошибки
+	* @param	Ошибка
+	* @retval 	Нет
   */
 void LIS3DSH_error_handler(LIS3DSH_ERROR_t LIS3DSH_error) {
 	LIS3DSH_code_error = LIS3DSH_error;
