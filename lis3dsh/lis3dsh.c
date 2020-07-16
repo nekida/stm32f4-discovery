@@ -23,7 +23,7 @@ void LIS3DSH_spi_write_read(uint8_t *byte_tx, uint8_t *byte_rx);
 double LIS3DSH_get_sensitivity(void);
 
 /**
-	* @brief 		Инициализация LIS3DSH
+	* @brief 	Инициализация LIS3DSH
 	* @details	Инициализация модуля SPI, ножки CS, установка кода отсутствия ошибки, чтение ID, 
 	*		инициализация акселерометра следующими параметрами:
 	*		-Скорость данных: 100 кГц
