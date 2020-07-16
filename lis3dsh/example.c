@@ -39,7 +39,7 @@
 #define LED5_OFF	(HAL_GPIO_WritePin(LED5_Red_GPIO_Port, 		LED5_Red_Pin, 		GPIO_PIN_RESET))
 #define LED4_ON 	(HAL_GPIO_WritePin(LED4_Green_GPIO_Port, 	LED4_Green_Pin, 	GPIO_PIN_SET))
 #define LED4_OFF	(HAL_GPIO_WritePin(LED4_Green_GPIO_Port, 	LED4_Green_Pin, 	GPIO_PIN_RESET))
-#define LED3_ON 	(HAL_GPIO_WritePin(LED3_Orange_GPIO_Port, LED3_Orange_Pin,	GPIO_PIN_SET))
+#define LED3_ON 	(HAL_GPIO_WritePin(LED3_Orange_GPIO_Port, 	LED3_Orange_Pin,	GPIO_PIN_SET))
 #define LED3_OFF	(HAL_GPIO_WritePin(LED3_Orange_GPIO_Port,	LED3_Orange_Pin, 	GPIO_PIN_RESET))
 #define LED6_ON 	(HAL_GPIO_WritePin(LED6_Blue_GPIO_Port, 	LED6_Blue_Pin, 		GPIO_PIN_SET))
 #define LED6_OFF	(HAL_GPIO_WritePin(LED6_Blue_GPIO_Port, 	LED6_Blue_Pin, 		GPIO_PIN_RESET))
@@ -103,7 +103,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		xyz_int16_main = LIS3DSH_get_XYZ_u16();
+		xyz_int16_main = LIS3DSH_get_XYZ_int16();
 		
 		if (xyz_int16_main.x > 200)
 			LED5_ON;
