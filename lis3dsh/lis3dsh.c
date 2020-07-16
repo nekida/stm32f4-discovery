@@ -122,7 +122,7 @@ strct_xyz LIS3DSH_get_XYZ(void) {
 	*	@param		Нет
 	* 	@retval 	Структура strct_xyz с данными в виде int16
   */
-strct_xyz_int_16 LIS3DSH_get_XYZ_u16(void) {
+strct_xyz_int_16 LIS3DSH_get_XYZ_int16(void) {
 	strct_xyz_int_16 xyz_16;
 	strct_xyz xyz;
 	
