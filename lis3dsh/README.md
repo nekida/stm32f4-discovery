@@ -6,4 +6,4 @@
 
 ![Image alt](https://github.com/nekida/stm32f4-discovery/blob/master/lis3dsh/Mems_LIS3DSH_connecting.jpg)
 
-Данные по трем осям XYZ возвращаются в функции LIS3DSH_get_XYZ_int16 в формате структуры strct_xyz_int_16, которая представляет собой обычную структуру с полями, содержащими данные по осям: strct_xyz_int_16.x, strct_xyz_int_16.y, strct_xyz_int_16.z.
+Данные по трем осям XYZ возвращаются в функции LIS3DSH_get_XYZ_int16() в формате структуры strct_xyz_int_16, которая представляет собой обычную структуру с полями, содержащими данные по осям: strct_xyz_int_16.x, strct_xyz_int_16.y, strct_xyz_int_16.z.
