@@ -52,5 +52,15 @@
 
 Данные по трем осям XYZ возвращаются в функции LIS3DSH_get_XYZ_int16() в формате структуры strct_xyz_int_16, которая представляет собой обычную структуру с полями, содержащими данные по осям: strct_xyz_int_16.x, strct_xyz_int_16.y, strct_xyz_int_16.z.
 
+## Настройка интерфейса
+Максимальная SPI_CLK датчика по даташиту составляет 10 МГц.
+Пример настройки модуля SPI в STM32CubeMX:
+
+![Image alt](https://github.com/nekida/stm32f4-discovery/blob/master/lis3dsh/pic/spi_config.jpg)
+
+Настройка ножки CS:
+
+![Image alt](https://github.com/nekida/stm32f4-discovery/blob/master/lis3dsh/pic/cs_pin_config.jpg)
+
 # Примечание
 html.zip - архив с html документацией
