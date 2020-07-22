@@ -125,7 +125,7 @@ int main(void)
 		if (audio_state) {
 			data = 0x00;
 			HAL_I2S_Transmit_IT(&hi2s3, &data, 1);
-		}	else {
+		} else {
 			data = 0xFFF;
 			HAL_I2S_Transmit_IT(&hi2s3, &data, 1);
 		}   
