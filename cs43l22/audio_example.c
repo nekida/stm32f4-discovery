@@ -118,7 +118,7 @@ int main(void)
 		if (counter_note == 0xFFFFF) {
 			counter_note = 0;
 			i++;
-			if (i == SI) i = DO; 	
+			if (i == NOTES_SIZE) i = DO; 	
 			notes_of_fist_octave[i]();			
 		}
 
