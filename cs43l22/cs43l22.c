@@ -8,7 +8,6 @@
 #include "cs43l22.h"
 
 I2C_HandleTypeDef 	CS43L22_i2c;		///<Handle I2C для работы с CS43L22
-I2S_HandleTypeDef	CS43L22_i2s;		///<Handle I2S для работы с CS43L22
 GPIO_TypeDef		*CS43L22_reset_port;	///<Указатель на порт ножки Reset
 uint16_t 		LIS3DSH_reset_pin;	///<Ножка Reset
 CS43L22_ERROR_t 	CS43L22_code_error;	///<Ошибка
@@ -51,7 +50,7 @@ void CS43L22_mute(bool state) {
 
 /**
 	* @brief 	Инициализация CS43L22
-	* @details	Инициализация модуля I2C, модуля I2S, ножки Reset, установка кода отсутствия ошибки, выставление Reset в 1, чтение ID, рекомендуемые настройки из datasheet'a, 
+	* @details	Инициализация модуля I2C, ножки Reset, установка кода отсутствия ошибки, выставление Reset в 1, чтение ID, рекомендуемые настройки из datasheet'a, 
 	*		инициализация ЦАП следующими параметрами:
 	* \details	Выключить питание
 	* \details	-Режим аудиосигнала
@@ -72,7 +71,6 @@ void CS43L22_mute(bool state) {
   */
 void CS43L22_init(I2C_HandleTypeDef CS43L22_i2c_for_init, I2S_HandleTypeDef CS43L22_i2s_for_init, GPIO_TypeDef* CS43L22_reset_port_for_init, uint16_t CS43L22_reset_pin_for_init, CS43L22_PURPOSE_t purpose) {
 	CS43L22_i2c 		= CS43L22_i2c_for_init;
-	CS43L22_i2s 		= CS43L22_i2s_for_init;
 	CS43L22_reset_port	= CS43L22_reset_port_for_init;
 	LIS3DSH_reset_pin  	= CS43L22_reset_pin_for_init;
 	CS43L22_code_error 	= CS43L22_ERROR_NONE;
