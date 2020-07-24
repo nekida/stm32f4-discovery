@@ -10,11 +10,11 @@ I2S тактируется PLLI2SCLK частотой 96 МГц.
 
 ![Image alt](https://github.com/nekida/stm32f4-discovery/blob/master/cs43l22/pic/schematic.jpg)
 
-Настройка I2C:
+Используется I2C1. Его настройка:
 
 ![Image alt](https://github.com/nekida/stm32f4-discovery/blob/master/cs43l22/pic/I2C_config.jpg)
 
-Настройка I2S:
+Используется I2S3. Его настройка:
 
 ![Image alt](https://github.com/nekida/stm32f4-discovery/blob/master/cs43l22/pic/I2S_config.jpg)
 
