@@ -1,0 +1,2 @@
+1. Analog -> DAC -> OU2 Configuration. ADC3 -> AIN12, Rank -> Sampling Time = 28 Cycles.
+2. Открываем STMStudio. Выбираем ST-Link SWD (во время работы STMStudio отладчик должен быть не занят другой программой). Смотрим в .map файле адрес глобальной пеерменной value_adc (у меня было 0x20000004). ПКМ в Display variable settings -> New и добавляем переменную value_adc с адресом и типом 16 битного беззнакового. ПКМ на переменной -> Send To -> VarViewer1. Идем в Viewers settings и ставим upper value 4096 (12 бит). Жмем Star/Stop.
