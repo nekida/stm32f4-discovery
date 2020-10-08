@@ -1,0 +1,88 @@
+-Задача
+--Узнайте, как импортировать BSP EEPROM в проект.
+--Мы используем проект из лаборатории 29
+--Какую часть нужно настроить в графическом интерфейсе
+--Попробуйте записать текст в EEPROM и прочитать его
+--Прочтите текст из EEPROM и отобразите его на ЖК-дисплее.
+-Цель
+--Успешно импортируйте драйверы BSP EEPROM в ваш проект.
+--Узнайте, какую часть вам нужно импортировать
+--Как настроить проект
+
+1. BSP состоит:
+-Discovery drivers (stm32f4xx_discovery.c, stm32f4xx_discovery_lcd.c, stm32f4xx_discovery_sdram.c, stm32f4xx_discovery_io.c, stm32f4xx_discovery_eeprom.c).
+-Components (ili9341.c, lis3dsh.c, stmpe811.c).
++ внешняя библиетка Utilities: Fonts.
+2. Нужный HAL API:
+stm32f4xx_hal_ltdc.c
+stm32f4xx_hal_spi.c
+stm32f4xx_hal_i2c.c
+stm32f4xx_hal.c
+stm32f4xx_II_fmc.c
+stm32f4xx_hal_sdram.c
+3. Используйте функции из stm32f4xx_discovery_eeprom.c.
+4. stm32f4xx_discovery_eeprom.c вызывает функции из stm32f4xx_discovery_io.c.
+5. stm32f4xx_discovery_io.c вызывает функции из stm32f4xx_discovery.c инициализацию ножек и функции записи / чтения.
+6. stm32f4xx_discovery.c используйте stm32f4xx_hal_i2c для коммутации с памятью eeprom.
+7. Мы используем проект из лаборатории BSP LCD 30, потому что мы хотим отображать содержимое памяти на ЖК-дисплее.
+8. Добавляем драйвер для BSP LDC:
+-Щелкните правой кнопкой мыши BSP> ДОБАВИТЬ из \ Drivers \ BSP \ STM32F429I-Discovery \
++stm32f429i_discovery_eeprom.c
++stm32f429i_discovery_io.c
+9. Добавьте определение EEPROM в параметры проекта:
+-Щелкните правой кнопкой мыши проект> Параметры> Компилятор CategoryC / C ++> Препроцессор.
+-В Defined symbols добавить EE_M24LR64
+-Это позволяет использовать функции EEPROM
+-Кнопка ОК закрыть параметры проекта.
+10. Используйте плату ATM7-M24LR-A с памятью M24LR и подключите ее к комплекту STM32F429i-Discovery.
+11. В main.c теперь измените include:
+/* USER CODE BEGIN Includes */
+#include"stm32f429i_discovery_lcd.h"
+#include"stm32f429i_discovery_io.h"
+#include"stm32f429i_discovery_eeprom.h"
+#include<string.h>
+/* USER CODE END Includes */
+12. Определить переменные:
+/* USER CODE BEGIN PV */
+uint8_t text_to_write[] = "test text";//написать в eeprom
+uint8_t text_to_read[200];//читать с eeprom
+uint32_t address = 0;//адрес в eeprom
+uint16_t read_num = 1;//количество байтов, которые мы хотим прочитать из eeprom
+/* USER CODE END PV */
+13. В stm32f4xx_hal_it.c добавить глобальную переменную для дескриптора i2c:
+/* USER CODE BEGIN 0 */
+externI2C_HandleTypeDef I2cHandle;
+/* USER CODE END 0 */
+и определить функции обработчика для I2C DMA:
+/* USER CODE BEGIN 1 */
+void DMA1_Stream4_IRQHandler()
+{
+	HAL_DMA_IRQHandler(I2cHandle.hdmatx);
+}
+void DMA1_Stream2_IRQHandler()
+{
+	HAL_DMA_IRQHandler(I2cHandle.hdmarx);
+}
+/* USER CODE END 1 */
+14. В main.c добавить:
+/* USER CODE BEGIN 2 */
+/*LCD init*/
+BSP_LCD_Init();
+BSP_LCD_LayerDefaultInit(1, SDRAM_DEVICE_ADDR); 
+BSP_LCD_SelectLayer(1);
+BSP_LCD_DisplayOn();
+BSP_LCD_Clear(LCD_COLOR_BLUE);
+BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
+BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+
+/*EEPROM init*
+BSP_EEPROM_Init();
+/*Write text into EEPROM*/
+BSP_EEPROM_WriteBuffer(text_to_write,0,(strlen(text_to_write)+1));
+/*Read text from EEPROM*/
+do { 
+	BSP_EEPROM_ReadBuffer((uint8_t*)&(text_to_read[address]),address,(uint16_t*)&read_num); 
+} while (text_to_read[address++]!=0x0);
+/*Display text*/
+BSP_LCD_DisplayStringAtLine(2,text_to_read);
+/* USER CODE END 2 */

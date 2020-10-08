@@ -1,0 +1,72 @@
+-Задача
+--Узнайте, как импортировать BSP GYROSCOPE в проект.
+--Мы используем проект из лаборатории 29
+--Какую часть нужно настроить в графическом интерфейсе
+--Считайте данные с ГИРОСКОПА и отобразите их на ЖК-дисплее.
+-Цель
+--Успешно импортировать драйверы BSP GYROSCOPE в ваш проект.
+--Узнайте, какую часть вам нужно импортировать
+--Как настроить проект
+
+1. BSP состоит:
+-Discovery drivers (stm32f4xx_discovery.c, stm32f4xx_discovery_lcd.c, stm32f4xx_discovery_sdram.c, stm32f4xx_discovery_io.c, stm32f4xx_discovery_gyroscope.c).
+-Components (ili9341.c, lis3dsh.c, stmpe811.c).
++ внешняя библиетка Utilities: Fonts.
+2. Нужный HAL API:
+stm32f4xx_hal_ltdc.c
+stm32f4xx_hal_spi.c
+stm32f4xx_hal_i2c.c
+stm32f4xx_hal.c
+stm32f4xx_II_fmc.c
+stm32f4xx_hal_sdram.c
+3. Используйте функции из stm32f4xx_discovery_eeprom.c.
+4. stm32f4xx_discovery_gyroscope.c вызывает функции из stm32f4xx_discovery_io.c.
+5. stm32f4xx_discovery_io.c вызывает функции из stm32f4xx_discovery.c инициализацию ножек и функции записи / чтения.
+6. stm32f4xx_discovery.c используйте stm32f4xx_hal_spi для общения с гироскопом.
+7. Мы используем проект из лаборатории BSP LCD 30, потому что мы хотим отображать значения гироскопа на ЖК-дисплее.
+8. Добавляем драйвер для BSP LDC:
+-Щелкните правой кнопкой мыши BSP> ДОБАВИТЬ из \ Drivers \ BSP \ STM32F429I-Discovery \
++stm32f429i_discovery_gyroscope.c
++stm32f429i_discovery_io.c
+-Щелкните правой кнопкой мыши BSP> ДОБАВИТЬ из \ Drivers \ BSP \ Components \
++l3gd20.c
+9. В main.c теперь измените include:
+/* USER CODE BEGIN Includes */
+#include"stm32f429i_discovery_lcd.h"
+#include"stm32f429i_discovery_gyroscope.h"
+#include"stm32f429i_discovery_io.h"
+#include<stdio.h>
+/* USER CODE END Includes */
+10. Определить переменные:
+/* USER CODE BEGIN PV */
+floatvalxyz[3];//значения гироскопа
+uint8_t buffer[200];//текстовый буфер
+/* USER CODE END PV */
+11. В main.c добавить:
+/* USER CODE BEGIN 2 */
+/*LCD init*
+/BSP_LCD_Init();
+BSP_LCD_LayerDefaultInit(1, SDRAM_DEVICE_ADDR); 
+BSP_LCD_SelectLayer(1);
+BSP_LCD_DisplayOn();
+BSP_LCD_Clear(LCD_COLOR_BLUE);
+BSP_LCD_SetBackColor(LCD_COLOR_BLUE);
+BSP_LCD_SetTextColor(LCD_COLOR_WHITE);
+/*Gyroscope init*/
+BSP_GYRO_Init();
+/* USER CODE END 2 */
+/* USER CODE BEGIN 3 */
+/* Infinite loop */
+while(1) {
+/*Get Gyrospope value*/
+BSP_GYRO_GetXYZ(valxyz);
+/*Display X*/
+sprintf(buffer,"x:%f",valxyz[0]);
+BSP_LCD_DisplayStringAtLine(2,buffer);
+/*Display Y*/
+sprintf(buffer,"y:%f",valxyz[1]);
+BSP_LCD_DisplayStringAtLine(3,buffer);
+/*Display Z*/sprintf(buffer,"z:%f",valxyz[2]);
+BSP_LCD_DisplayStringAtLine(4,buffer);
+/*Delay*/HAL_Delay(1000);}
+/* USER CODE END 3 */

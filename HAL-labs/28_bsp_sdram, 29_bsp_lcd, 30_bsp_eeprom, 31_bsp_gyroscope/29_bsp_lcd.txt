@@ -1,0 +1,61 @@
+-Задача
+--Узнайте, как импортировать BSP LCD в проект.
+--Поскольку ЖК-дисплей использует SDRAM, мы используем проект из лаборатории 28
+--Какую часть нужно настроить в графическом интерфейсе
+--Попробуйте написать текст на ЖК-дисплее.
+-Цель
+--Успешно импортируйте BSP LCD в свой проект
+--Узнайте, какую часть вам нужно импортировать
+--Как настроить проект
+
+1. BSP состоит:
+-Discovery drivers (stm32f4xx_discovery.c, stm32f4xx_discovery_lcd.c, stm32f4xx_discovery_sdram.c).
+-Components (ili9341.c, lis3dsh.c, stmpe811.c).
++ внешняя библиетка Utilities: Fonts.
+2. Нужный HAL API:
+stm32f4xx_hal_ltdc.c
+stm32f4xx_hal_spi.c
+stm32f4xx_hal_i2c.c
+stm32f4xx_hal.c
+stm32f4xx_II_fmc.c
+stm32f4xx_hal_sdram.c
+3. Включить stm32f4xx_discovery_lcd.h.
+4. stm32f4xx_discovery_lcd.h использует BSP и SDRAM.
+5. stm32f4xx_discovery_lcd.h использует драйвер ili9341.c, который является контроллером TFT LCD.
+6. stm32f4xx_discovery_lcd.h использует контроллер LCTD от HAL.
+7. stm32f4xx_discovery_lcd.h использует шрифты из служебной папки.
+8. Мы используем проект из BSP SDRAM, потому что ЖК-дисплей также использует SDRAM. Нам нужно скопировать Fonts из папки Utilities в репозиторий CubeMX.
+9. В нашем проекте в папке Drivers создаем папку Utilities. Теперь перейдите в репозиторий CubeMX… \ STM32Cube_FW_F4_V1.3.0 \ Utilities \ и скопируйте папку Fontsinto Utilities.
+10. Добавляем драйвер для LCD от HAL:
+-Щелкните правой кнопкой мыши STM32F4xx_HAL_Drive> ADDfrom \ Drivers \ STM32F4xx_HAL_Driver \ Src
++stm32f4xx_hal_ltdc.c
++stm32f4xx_hal_dma2d.c
+11. Добавляем драйвер для BSP LDC:
+-Щелкните правой кнопкой мыши BSP> ДОБАВИТЬ из \ Drivers \ BSP \ STM32F429I-Discovery \
++stm32f429i_discovery_lcd.c
+-Щелкните правой кнопкой мыши BSP> ДОБАВИТЬ из \ Drivers \ BSP \ Components \ ili9341 \
++ili9341.c
+12. Теперь последнее, что нужно сделать, это включить новые файлы HAL, которые мы добавили.
+-Откройте stm32f4xx_hal_conf.h в .. \ Inc \
+-Раскомментируйте файлы, которые мы добавили: HAL_DMA2D_MODULE_ENABLED и HAL_LTDC_MODULE_ENABLED.
+13. В main.c теперь мы модифицируем include с stm32f429i_discovery_sdram.h на stm32f429i_discovery_lcd.h:
+/* USER CODE BEGIN Includes */
+#include "stm32f429i_discovery_lcd.h"
+/* USER CODE END Includes */
+14. И удалите BSP_SDRAM_Init ():
+/* USER CODE BEGIN 2 */
+/* USER CODE END 2 */
+15. /* USER CODE BEGIN 2 */
+BSP_LCD_Init();
+//установить адрес буфера слоя в SDRAM
+BSP_LCD_LayerDefaultInit(1, SDRAM_DEVICE_ADDR);
+BSP_LCD_SelectLayer(1);//выбираем на каком слое пишем
+BSP_LCD_DisplayOn();//включить ЖК-дисплей
+BSP_LCD_Clear(LCD_COLOR_BLUE);//очистить ЖК-дисплей синим цветом
+BSP_LCD_SetBackColor(LCD_COLOR_BLUE);//установить цвет фона текста
+BSP_LCD_SetTextColor(LCD_COLOR_WHITE);//установить цвет текста
+//написать текст
+BSP_LCD_DisplayStringAtLine(2,"Cube STM32");
+BSP_LCD_DisplayStringAtLine(3,"BSP");
+BSP_LCD_DisplayStringAtLine(4,"LCD DEMO");
+/* USER CODE END 2 */
